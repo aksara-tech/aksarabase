@@ -9,12 +9,14 @@ import (
 type mysqlDB struct {
 	db            *sql.DB
 	outputScanner scanner.OutputScanner
+	inputScanner  scanner.InputScanner
 }
 
-func NewMysqlDB(driver string, dsn string) *mysqlDB {
+func NewMysqlDB(driver string, dsn string, o scanner.OutputScanner, i scanner.InputScanner) *mysqlDB {
 	db := sql_driver.NewSql(driver, dsn)
 	return &mysqlDB{
 		db:            db,
-		outputScanner: scanner.NewOutputScanner(),
+		outputScanner: o,
+		inputScanner:  i,
 	}
 }

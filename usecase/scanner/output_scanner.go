@@ -1,18 +1,58 @@
 package scanner
 
-import "database/sql"
+import (
+	"aksarabase-v2/domain/callbacks"
+	"database/sql"
+	"reflect"
+)
 
 type outputScanner struct {
 	pointerScanner PointerScanner
 }
 
-func NewOutputScanner() *outputScanner {
-	return &outputScanner{}
+func NewOutputScanner(pointerScanner PointerScanner) *outputScanner {
+	return &outputScanner{pointerScanner: pointerScanner}
 }
 
-func (o outputScanner) ToStructs(dest interface{}, row *sql.Rows) error {
+func (o outputScanner) ToStructs(dest interface{}, rows *sql.Rows, m callbacks.StructForm) error {
+	val := reflect.ValueOf(dest)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
+	}
 
-	panic("implement me")
+	for rows.Next() {
+		//generate new struct n refresh nested pointer from hooker function
+		//create new memory of typ struct
+		_, x := m()
+
+		d := reflect.ValueOf(x)
+		//build list address for scan
+		columns := new([]interface{})
+		o.pointerScanner.GetListPointer(d.Interface(), columns)
+
+		//set list address with result data
+		err := rows.Scan(*columns...)
+		if err != nil {
+			return err
+		}
+
+		//append dest with
+		if val.CanSet() {
+			val.Set(reflect.Append(val, d.Elem()))
+		}
+	}
+
+	err := rows.Close()
+	if err != nil {
+		return err
+	}
+
+	err = rows.Err()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (o outputScanner) ToStruct(dest interface{}, row *sql.Row) error {

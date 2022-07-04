@@ -1,10 +1,11 @@
-package query_executor
+package adv
 
 import (
 	"aksarabase-v2/domain/callbacks"
 	"context"
 )
 
+//DB Advance query that's will useful for complexity case
 type DB interface {
 	DBFirst
 	DBFind

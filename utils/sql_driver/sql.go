@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 )
+import _ "github.com/go-sql-driver/mysql"
 
 //NewSql open driver and database connection
 func NewSql(driver string, dsn string) *sql.DB {

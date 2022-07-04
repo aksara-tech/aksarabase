@@ -1,19 +1,13 @@
 package scanner
 
 import (
-	"fmt"
+	"aksarabase-v2/example/model"
+	"github.com/stretchr/testify/assert"
 	"testing"
-	"time"
 )
 
-type BaseModel struct {
-	ID        int64 `json:"id"`
-	CreatedAt time.Time
-	UpdatedAt *time.Time
-}
-
 type Person struct {
-	BaseModel
+	model.BaseModel
 	Name   string
 	Number int
 	IDCard *int64
@@ -24,5 +18,5 @@ func Test_pointerScanner_GetListPointer(t *testing.T) {
 	res := new([]interface{})
 	p := NewPointerScanner()
 	p.GetListPointer(person, res)
-	fmt.Println(res)
+	assert.Equal(t, len(*res), 7)
 }
