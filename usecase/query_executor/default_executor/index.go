@@ -1,9 +1,9 @@
 package default_executor
 
 import (
-	"aksarabase-v2/utils/sql_driver"
 	"context"
 	"database/sql"
+	"gitlab.com/wirawirw/aksarabase-go/v3/utils/sql_driver"
 )
 
 type mysqlExecutor struct {

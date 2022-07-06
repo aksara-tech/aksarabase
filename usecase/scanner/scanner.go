@@ -1,9 +1,9 @@
 package scanner
 
 import (
-	"aksarabase-v2/domain/callbacks"
-	"aksarabase-v2/domain/info"
 	"database/sql"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/callbacks"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
 )
 
 type Scanner interface {

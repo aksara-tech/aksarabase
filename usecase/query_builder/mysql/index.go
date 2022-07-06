@@ -1,6 +1,6 @@
 package mysql
 
-import "aksarabase-v2/usecase/query_builder"
+import "gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_builder"
 
 type queryBuilderMysql struct {
 	query_builder.InsertQueryBuilder

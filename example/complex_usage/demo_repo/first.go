@@ -1,8 +1,8 @@
 package demo_repo
 
 import (
-	"aksarabase-v2/example/model"
-	"aksarabase-v2/utils/s"
+	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
+	"gitlab.com/wirawirw/aksarabase-go/v3/utils/s"
 )
 
 //GetCompanyByID get single company by id

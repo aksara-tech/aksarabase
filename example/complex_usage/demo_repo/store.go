@@ -1,7 +1,7 @@
 package demo_repo
 
 import (
-	"aksarabase-v2/example/model"
+	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
 	"time"
 )
 

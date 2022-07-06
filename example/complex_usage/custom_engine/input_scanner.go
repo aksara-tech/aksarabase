@@ -1,6 +1,6 @@
 package custom_engine
 
-import "aksarabase-v2/domain/info"
+import "gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
 
 type inputScanner struct {
 }

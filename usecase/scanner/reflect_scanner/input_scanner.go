@@ -1,12 +1,12 @@
 package reflect_scanner
 
 import (
-	"aksarabase-v2/domain/info"
-	"aksarabase-v2/domain/query"
-	"aksarabase-v2/usecase/scanner"
-	"aksarabase-v2/utils/reflector"
-	"aksarabase-v2/utils/stringtor"
 	"fmt"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/query"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
+	"gitlab.com/wirawirw/aksarabase-go/v3/utils/reflector"
+	"gitlab.com/wirawirw/aksarabase-go/v3/utils/stringtor"
 	"reflect"
 	"strings"
 	"time"

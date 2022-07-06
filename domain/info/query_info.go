@@ -1,6 +1,6 @@
 package info
 
-import "aksarabase-v2/domain/query"
+import "gitlab.com/wirawirw/aksarabase-go/v3/domain/query"
 
 //QueryInfo is a partial query builder that has modifiable structure before it's executed
 type QueryInfo struct {

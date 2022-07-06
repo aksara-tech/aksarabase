@@ -1,7 +1,7 @@
 package query_builder
 
 import (
-	"aksarabase-v2/domain/info"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
 )
 
 type InsertQueryBuilder interface {

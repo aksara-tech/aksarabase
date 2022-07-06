@@ -1,8 +1,8 @@
 package mysql
 
 import (
-	"aksarabase-v2/domain/info"
 	"fmt"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
 	"strings"
 )
 

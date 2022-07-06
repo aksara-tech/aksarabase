@@ -1,13 +1,13 @@
 package aksarabase_v2
 
 import (
-	"aksarabase-v2/domain"
-	"aksarabase-v2/usecase/query_builder"
-	"aksarabase-v2/usecase/query_builder/mysql"
-	"aksarabase-v2/usecase/query_executor"
-	"aksarabase-v2/usecase/query_executor/default_executor"
-	"aksarabase-v2/usecase/scanner"
-	"aksarabase-v2/usecase/scanner/reflect_scanner"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_builder"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_builder/mysql"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor/default_executor"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner/reflect_scanner"
 )
 
 //ADB Aksara Database Definition

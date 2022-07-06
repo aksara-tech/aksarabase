@@ -1,10 +1,10 @@
 package mysql
 
 import (
-	"aksarabase-v2/domain/info"
-	"aksarabase-v2/domain/query"
-	"aksarabase-v2/utils/regex"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/query"
+	"gitlab.com/wirawirw/aksarabase-go/v3/utils/regex"
 	"testing"
 )
 

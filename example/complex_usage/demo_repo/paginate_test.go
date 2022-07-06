@@ -1,11 +1,11 @@
 package demo_repo
 
 import (
-	aksarabase_v2 "aksarabase-v2"
-	"aksarabase-v2/domain"
-	"aksarabase-v2/domain/constanta"
-	"aksarabase-v2/usecase/query_executor/debug_executor"
 	"github.com/stretchr/testify/assert"
+	aksarabase_v2 "gitlab.com/wirawirw/aksarabase-go/v3"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/constanta"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor/debug_executor"
 	"testing"
 )
 

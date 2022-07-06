@@ -1,8 +1,8 @@
 package reflect_scanner
 
 import (
-	"aksarabase-v2/example/model"
 	"github.com/stretchr/testify/assert"
+	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
 	"testing"
 )
 

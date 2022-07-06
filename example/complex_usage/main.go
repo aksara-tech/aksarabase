@@ -1,13 +1,13 @@
 package main
 
 import (
-	aksarabase_v2 "aksarabase-v2"
-	"aksarabase-v2/domain"
-	"aksarabase-v2/domain/constanta"
-	"aksarabase-v2/example/complex_usage/demo_repo"
-	"aksarabase-v2/example/model"
-	"aksarabase-v2/usecase/query_executor/debug_executor"
 	"fmt"
+	aksarabase_v2 "gitlab.com/wirawirw/aksarabase-go/v3"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain"
+	"gitlab.com/wirawirw/aksarabase-go/v3/domain/constanta"
+	"gitlab.com/wirawirw/aksarabase-go/v3/example/complex_usage/demo_repo"
+	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
+	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor/debug_executor"
 )
 
 func main() {
