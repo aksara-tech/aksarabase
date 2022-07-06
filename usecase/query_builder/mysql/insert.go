@@ -1,21 +1,46 @@
 package mysql
 
 import (
-	"aksarabase-v2/usecase/scanner"
+	"aksarabase-v2/domain/constanta"
+	"aksarabase-v2/domain/info"
 	"fmt"
 	"strings"
+	"time"
 )
 
-func (b queryBuilderMysql) BuildInsertQuery(info scanner.ScanInfo, addQuery ...string) string {
-	var params []string
-	i := 0
+type insertBuilder struct{}
 
-	for _, j := range info.ColumnJson {
-		if info.Values[i] != nil {
-			params = append(params, fmt.Sprintf("%v='%v'", j, info.Values[i]))
+func NewInsertBuilder() *insertBuilder {
+	return &insertBuilder{}
+}
+
+func (b insertBuilder) BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo) string {
+	var values []string
+	var columns []string
+	i := 0
+	for _, value := range info.Values {
+		if fmt.Sprintf("%v", value) == "0" {
+			goto next
 		}
-		i++
+
+		if value != nil {
+			if info.ColumnJson[i] == "created_at" {
+				value = time.Now().UTC().Format(constanta.TIME_LAYOUT)
+			}
+
+			if value == constanta.TIME_NIL {
+				goto next
+			}
+
+			values = append(values, fmt.Sprintf("'%v'", value))
+			columns = append(columns, fmt.Sprintf("%v", info.ColumnJson[i]))
+		}
+	next:
+		{
+			i++
+		}
 	}
 
-	return fmt.Sprintf("INSERT %v SET %v %v", info.TableName, strings.Join(params, ","), strings.Join(addQuery, " "))
+	query := fmt.Sprintf("INSERT INTO %v (%v) VALUES (%v)", info.TableName, strings.Join(columns, ","), strings.Join(values, ","))
+	return query
 }

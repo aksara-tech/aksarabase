@@ -1,21 +1,48 @@
 package mysql
 
 import (
-	"aksarabase-v2/usecase/scanner"
+	"aksarabase-v2/domain/constanta"
+	"aksarabase-v2/domain/info"
 	"fmt"
 	"strings"
+	"time"
 )
 
-func (b queryBuilderMysql) BuildUpdateQuery(info scanner.ScanInfo, addQuery ...string) string {
+type updateBuilder struct{}
+
+func NewUpdateBuilder() *updateBuilder {
+	return &updateBuilder{}
+}
+
+func (b updateBuilder) BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo) string {
 	var params []string
 	i := 0
 
 	for _, j := range info.ColumnJson {
-		if info.Values[i] != nil {
-			params = append(params, fmt.Sprintf("%v='%v'", j, info.Values[i]))
+		if fmt.Sprintf("%v", info.Values[i]) == "" {
+			goto next
 		}
+		if fmt.Sprintf("%v", info.Values[i]) == "0" {
+			goto next
+		}
+		if fmt.Sprintf("%v", info.Values[i]) == constanta.TIME_NIL {
+			goto next
+		}
+		if j == "updated_at" {
+			value := fmt.Sprintf("%v='%v'", j, time.Now().UTC().Format(constanta.TIME_LAYOUT))
+			params = append(params, value)
+			goto next
+		}
+
+		if info.Values[i] != nil {
+			value := fmt.Sprintf("%v='%v'", j, info.Values[i])
+
+			params = append(params, value)
+		}
+	next:
 		i++
 	}
 
-	return fmt.Sprintf("Update %v SET %v created_at=NOW()", info.TableName, strings.Join(params, ","))
+	query := fmt.Sprintf("Update %v SET %v WHERE %v", info.TableName, strings.Join(params, ","), strings.Join(qInfo.Where, ","))
+	return query
 }

@@ -2,6 +2,7 @@ package scanner
 
 import (
 	"aksarabase-v2/domain/callbacks"
+	"aksarabase-v2/domain/info"
 	"database/sql"
 )
 
@@ -19,8 +20,8 @@ type OutputScanner interface {
 }
 
 type InputScanner interface {
-	//GetStruct get struct info
-	ScanStruct(dest interface{}) (ScanInfo, error)
+	//ScanStruct get struct info
+	ScanStruct(dest interface{}) (info.ScanInfo, info.QueryInfo, error)
 }
 
 type PointerScanner interface {

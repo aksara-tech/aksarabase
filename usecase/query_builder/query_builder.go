@@ -1,19 +1,25 @@
 package query_builder
 
-import "aksarabase-v2/usecase/scanner"
+import (
+	"aksarabase-v2/domain/info"
+)
 
 type InsertQueryBuilder interface {
-	//BuildInsertQuery build insert query
-	//  INSERT %v SET %v created_at=NOW()
-	BuildInsertQuery(info scanner.ScanInfo, addQuery ...string) string
+	//BuildInsertQuery build insert query using ScanInfo
+	BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo) string
 }
 
 type SelectQueryBuilder interface {
-	BuildSelectQuery(info scanner.ScanInfo, addQuery ...string) string
+	/*
+		Convert ScanInfo from struct Scanner and QueryInfo, which has
+		  Select, From, Where, Join, Limit, OrderBy to string query
+	*/
+	BuildSelectQuery(info info.ScanInfo, qInfo info.QueryInfo) string
 }
 
 type UpdateQueryBuilder interface {
-	BuildUpdateQuery(info scanner.ScanInfo, addQuery ...string) string
+	//BuildUpdateQuery build update query using where in QueryInfo and ScanInfo
+	BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo) string
 }
 
 type QueryBuilder interface {
