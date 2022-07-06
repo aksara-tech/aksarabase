@@ -25,17 +25,6 @@ func main() {
 	repo := demo_repo.NewRepository(*adb)
 
 	//============= FIRST ===============
-	company, err := repo.GetCompanyByID(1)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(company)
-
-	userWithCompany, err := repo.GetUserWithCompany(1)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(userWithCompany)
 
 	user, err := repo.GetUserByID(1)
 	if err != nil {
@@ -60,9 +49,7 @@ func main() {
 	}
 
 	err = repo.Store(cstore)
-	if err != nil {
-		panic(err)
-	}
+
 	fmt.Println(cstore)
 
 }

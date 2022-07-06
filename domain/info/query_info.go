@@ -8,6 +8,6 @@ type QueryInfo struct {
 	From    string
 	Where   []string
 	Join    []query.JoinRelation
-	Limit   int
+	Limit   string
 	OrderBy string
 }

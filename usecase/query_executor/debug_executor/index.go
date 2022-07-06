@@ -20,8 +20,12 @@ func NewExecutor(driver string, dsn string) *mysqlExecutor {
 }
 
 func (e mysqlExecutor) Exec(query string) (interface{}, error) {
+	s1 := time.Now()
 	res, err := e.db.Exec(query)
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
 	if err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
 		return nil, err
 	}
 
@@ -29,24 +33,63 @@ func (e mysqlExecutor) Exec(query string) (interface{}, error) {
 }
 
 func (e mysqlExecutor) ExecWithCtx(ctx context.Context, query string) (interface{}, error) {
-	return e.db.ExecContext(ctx, query)
+	s1 := time.Now()
+	res, err := e.db.ExecContext(ctx, query)
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
+	if err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
+		return nil, err
+	}
+
+	return res, nil
 }
 
 func (e mysqlExecutor) Row(query string) *sql.Row {
 	s1 := time.Now()
 	row := e.db.QueryRow(query)
-	fmt.Printf("==Execute time: %v", time.Since(s1))
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
+	if err := row.Err(); err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
+	}
 	return row
 }
 
 func (e mysqlExecutor) RowCtx(ctx context.Context, query string) *sql.Row {
-	return e.db.QueryRowContext(ctx, query)
+	s1 := time.Now()
+	row := e.db.QueryRowContext(ctx, query)
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
+	if err := row.Err(); err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
+	}
+	return row
 }
 
 func (e mysqlExecutor) Rows(query string) (*sql.Rows, error) {
-	return e.db.Query(query)
+	s1 := time.Now()
+	row, err := e.db.Query(query)
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
+	if err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
+		return nil, err
+	}
+
+	return row, nil
+
 }
 
 func (e mysqlExecutor) RowsCtx(ctx context.Context, query string) (*sql.Rows, error) {
-	return e.db.QueryContext(ctx, query)
+	s1 := time.Now()
+	row, err := e.db.QueryContext(ctx, query)
+	fmt.Printf("\n ==Query: %v ", query)
+	fmt.Printf("\n ==Execute time: %v", time.Since(s1))
+	if err != nil {
+		fmt.Printf("\n ==Error: %v ", err)
+		return nil, err
+	}
+
+	return row, nil
 }

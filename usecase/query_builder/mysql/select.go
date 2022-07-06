@@ -38,7 +38,7 @@ func (b selectBuilder) BuildSelectQuery(i info.ScanInfo, q info.QueryInfo) strin
 
 	//TODO: build limit
 	var l string
-	if q.Limit > 0 {
+	if q.Limit != "" {
 		l = fmt.Sprintf("LIMIT %v", q.Limit)
 	}
 	//TODO: build order by
