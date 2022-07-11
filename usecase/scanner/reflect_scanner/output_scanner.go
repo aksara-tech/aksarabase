@@ -2,8 +2,8 @@ package reflect_scanner
 
 import (
 	"database/sql"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/callbacks"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/callbacks"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
 	"reflect"
 )
 

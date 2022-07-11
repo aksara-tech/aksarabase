@@ -1,8 +1,8 @@
-package demo_repo
+package complex_usage
 
 import (
-	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/s"
+	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/s"
 )
 
 //GetUserWithCompany get user and his company

@@ -1,4 +1,4 @@
-module gitlab.com/wirawirw/aksarabase-go/v3
+module gitlab.com/aksaratech/aksarabase-go/v3
 
 go 1.18
 

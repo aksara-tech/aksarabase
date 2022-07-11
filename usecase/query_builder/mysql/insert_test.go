@@ -3,11 +3,11 @@ package mysql
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
-	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner/reflect_scanner"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/regex"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
+	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner/reflect_scanner"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/regex"
 	"testing"
 	"time"
 )

@@ -2,8 +2,8 @@ package scanner
 
 import (
 	"database/sql"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/callbacks"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/callbacks"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
 )
 
 type Scanner interface {
@@ -20,7 +20,8 @@ type OutputScanner interface {
 }
 
 type InputScanner interface {
-	//ScanStruct get struct info
+	//ScanStruct generate struct info and modifiable query info.
+	//  This also auto generate join query if struct is nested
 	ScanStruct(dest interface{}) (info.ScanInfo, info.QueryInfo, error)
 }
 

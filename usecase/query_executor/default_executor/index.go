@@ -3,7 +3,7 @@ package default_executor
 import (
 	"context"
 	"database/sql"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/sql_driver"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/sql_driver"
 )
 
 type mysqlExecutor struct {

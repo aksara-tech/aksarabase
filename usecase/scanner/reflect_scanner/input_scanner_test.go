@@ -2,7 +2,7 @@ package reflect_scanner
 
 import (
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/wirawirw/aksarabase-go/v3/example/model"
+	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
 	"testing"
 )
 

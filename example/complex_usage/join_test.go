@@ -1,10 +1,10 @@
-package demo_repo
+package complex_usage
 
 import (
 	"github.com/stretchr/testify/assert"
-	aksarabase_v2 "gitlab.com/wirawirw/aksarabase-go/v3"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/constanta"
+	aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
 	"testing"
 )
 

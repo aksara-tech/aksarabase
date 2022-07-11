@@ -1,6 +1,6 @@
 package custom_engine
 
-import "gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
+import "gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
 
 type selectBuilder struct {
 }

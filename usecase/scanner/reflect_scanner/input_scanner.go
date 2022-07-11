@@ -2,11 +2,11 @@ package reflect_scanner
 
 import (
 	"fmt"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/info"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/query"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/reflector"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/stringtor"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/query"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/reflector"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/stringtor"
 	"reflect"
 	"strings"
 	"time"
@@ -17,6 +17,7 @@ type inputScanner struct{}
 func (in inputScanner) ScanStruct(dest interface{}) (s info.ScanInfo, q info.QueryInfo, err error) {
 	s.StructName = reflector.GetStructName(dest)
 	s.TableName = reflector.GetTableName(dest)
+	s.StructAddress = dest
 	in.getColumn(dest, s.StructName, &s.Columns, &s.ColumnWithAliases, &s.ColumnJson, &s.Values, &q.Join)
 
 	//TODO: append select

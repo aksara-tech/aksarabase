@@ -1,6 +1,6 @@
 package reflect_scanner
 
-import "gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
+import "gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
 
 type reflectScanner struct {
 	scanner.OutputScanner

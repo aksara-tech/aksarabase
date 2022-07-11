@@ -2,8 +2,8 @@ package reflector
 
 import (
 	"fmt"
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain/interfaces"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/stringtor"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/interfaces"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/stringtor"
 	"reflect"
 )
 

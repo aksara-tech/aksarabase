@@ -1,13 +1,14 @@
 package aksarabase_v2
 
 import (
-	"gitlab.com/wirawirw/aksarabase-go/v3/domain"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_builder"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_builder/mysql"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/query_executor/default_executor"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner"
-	"gitlab.com/wirawirw/aksarabase-go/v3/usecase/scanner/reflect_scanner"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/orm"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder/mysql"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor/default_executor"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner/reflect_scanner"
 )
 
 //ADB Aksara Database Definition
@@ -18,6 +19,8 @@ type ADB struct {
 	Scanner scanner.Scanner
 	//QBuilder used for generate basic query
 	QBuilder query_builder.QueryBuilder
+	//ORM is easy and simple command to get or execute data from database
+	ORM orm.ORM
 }
 
 //Open used to integrate all module and start the orm, scanner ,and other feature.
@@ -35,6 +38,7 @@ func Open(driver string, dsn string, config domain.Config) *ADB {
 		Exec:     executor,
 		Scanner:  scanner,
 		QBuilder: queryBuilder,
+		ORM:      orm.NewOrm(scanner, executor, queryBuilder),
 	}
 }
 

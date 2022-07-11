@@ -1,6 +1,6 @@
-package demo_repo
+package complex_usage
 
-import aksarabase_v2 "gitlab.com/wirawirw/aksarabase-go/v3"
+import aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
 
 type repository struct {
 	db aksarabase_v2.ADB

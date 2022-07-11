@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"gitlab.com/wirawirw/aksarabase-go/v3/utils/sql_driver"
+	"gitlab.com/aksaratech/aksarabase-go/v3/utils/sql_driver"
 	"time"
 )
 
