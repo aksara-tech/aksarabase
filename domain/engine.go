@@ -17,8 +17,8 @@ type Engine struct {
 	InsertQueryBuilder query_builder.InsertQueryBuilder
 	//UpdateQueryBuilder
 	UpdateQueryBuilder query_builder.UpdateQueryBuilder
-	//BuildSelectQuery
-	SelectQueryBuilder query_builder.SelectQueryBuilder
+	//BuildSelect
+	SelectBuilder query_builder.SelectBuilder
 	//SqlExecutor execute query or hooking executor
 	SqlExecutor query_executor.SqlExecutor
 }

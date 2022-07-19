@@ -12,12 +12,12 @@ type Paginator struct {
 
 func (r repository) PaginateUser(paginator Paginator) (res []model.Company, err error) {
 	former := model.Company{}
-	i, q, err := r.db.Scanner.ScanStruct(&former)
+	i, err := r.db.Scanner.ScanStruct(&former)
 	if err != nil {
 		return nil, err
 	}
-	q.Limit = s.F("%v,%v", paginator.Page, paginator.Limit)
-	query := r.db.QBuilder.BuildSelectQuery(i, q)
+	i.Query.LimitQuery = s.F("%v,%v", paginator.Page, paginator.Limit)
+	query := r.db.QBuilder.BuildSelect(i)
 	rows, err := r.db.Exec.Rows(query)
 	if err != nil {
 		return nil, err

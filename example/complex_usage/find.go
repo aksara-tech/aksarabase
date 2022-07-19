@@ -7,13 +7,13 @@ import (
 
 func (r repository) FetchByID(id int64) (res []model.Company, err error) {
 	companyFormer := model.Company{}
-	i, q, err := r.db.Scanner.ScanStruct(&companyFormer)
+	i, err := r.db.Scanner.ScanStruct(&companyFormer)
 	if err != nil {
 		return nil, err
 	}
 
-	q.Where = append(q.Where, s.F("Company.id=%v", id))
-	query := r.db.QBuilder.BuildSelectQuery(i, q)
+	i.Query.WhereQuery = append(i.Query.WhereQuery, s.F("Company.id=%v", id))
+	query := r.db.QBuilder.BuildSelect(i)
 	rows, err := r.db.Exec.Rows(query)
 	if err != nil {
 		return nil, err

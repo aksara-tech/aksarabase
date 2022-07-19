@@ -8,6 +8,7 @@ type ScanInfo struct {
 	ColumnJson        []string
 	ColumnWithAliases []string
 	Values            []interface{}
+	Types             []string
 }
 
 //TODO: YOU CAN USE THIS STRUCT FOR CACHING

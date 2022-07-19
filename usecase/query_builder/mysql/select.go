@@ -6,30 +6,30 @@ import (
 	"strings"
 )
 
-type selectBuilder struct{}
+type SelectBuilder struct{}
 
-func NewSelectBuilder() *selectBuilder {
-	return &selectBuilder{}
+func NewSelectBuilder() *SelectBuilder {
+	return &SelectBuilder{}
 }
 
-func (b selectBuilder) BuildSelectQuery(i info.ScanInfo, q info.QueryInfo) string {
-	//TODO: build query select
+func (b SelectBuilder) BuildSelect(i info.Info) string {
+	//TODO: build query SelectQuery
 	s := "*"
-	if len(q.Select) > 0 {
-		s = strings.Join(q.Select, ",")
+	if len(i.Query.SelectQuery) > 0 {
+		s = strings.Join(i.Query.SelectQuery, ",")
 	}
 
 	//TODO: build query where
 	var w string
-	if len(q.Where) > 0 {
-		w = fmt.Sprintf("WHERE %v", strings.Join(q.Where, " "))
+	if len(i.Query.WhereQuery) > 0 {
+		w = fmt.Sprintf("WHERE %v", strings.Join(i.Query.WhereQuery, " "))
 	}
 
 	//TODO: build join
 	var j string
-	if len(q.Join) > 0 {
+	if len(i.Query.JoinQuery) > 0 {
 		var joins []string
-		for _, join := range q.Join {
+		for _, join := range i.Query.JoinQuery {
 			joins = append(joins, fmt.Sprintf("%v %v ON %v ", join.Join, join.TableName, join.ON))
 		}
 
@@ -38,16 +38,16 @@ func (b selectBuilder) BuildSelectQuery(i info.ScanInfo, q info.QueryInfo) strin
 
 	//TODO: build limit
 	var l string
-	if q.Limit != "" {
-		l = fmt.Sprintf("LIMIT %v", q.Limit)
+	if i.Query.LimitQuery != "" {
+		l = fmt.Sprintf("LIMIT %v", i.Query.LimitQuery)
 	}
 	//TODO: build order by
 	var o string
-	if q.OrderBy != "" {
-		o = fmt.Sprintf("ORDER BY %v", q.OrderBy)
+	if i.Query.OrderByQuery != "" {
+		o = fmt.Sprintf("ORDER BY %v", i.Query.OrderByQuery)
 	}
 
-	query := fmt.Sprintf("SELECT %v FROM %v %v %v %v %v", s, q.From, j, w, o, l)
+	query := fmt.Sprintf("SELECT %v FROM %v %v %v %v %v", s, i.Query.FromQuery, j, w, o, l)
 
 	return query
 }

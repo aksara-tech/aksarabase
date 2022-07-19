@@ -19,7 +19,7 @@ func Test_queryBuilderMysql_BuildInsertQuery(t *testing.T) {
 		PicName:  "TEST",
 		PicPhone: nil,
 	}
-	i, q, _ := scanner.ScanStruct(company)
+	i, _ := scanner.ScanStruct(company)
 
 	type args struct {
 		info  info.ScanInfo
@@ -33,8 +33,8 @@ func Test_queryBuilderMysql_BuildInsertQuery(t *testing.T) {
 		{
 			name: "BASIC",
 			args: args{
-				info:  i,
-				qInfo: q,
+				info:  i.Scan,
+				qInfo: i.Query,
 			},
 			want: fmt.Sprintf("INSERT INTO companies (created_at,name,pic_name) VALUES ('%v','TEST COMPANY','TEST')", time.Now().UTC().Format(constanta.TIME_LAYOUT)),
 		},
@@ -42,7 +42,10 @@ func Test_queryBuilderMysql_BuildInsertQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			qb := NewInsertBuilder()
-			s := qb.BuildInsertQuery(tt.args.info, tt.args.qInfo)
+			s := qb.BuildInsertQuery(info.Info{
+				Query: tt.args.qInfo,
+				Scan:  tt.args.info,
+			})
 			assert.Equal(t, tt.want, regex.RemoveMultiString(s))
 		})
 	}

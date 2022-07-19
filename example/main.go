@@ -20,7 +20,7 @@ func main() {
 			PointerScanner:     nil,
 			InsertQueryBuilder: nil,
 			UpdateQueryBuilder: nil,
-			SelectQueryBuilder: nil,
+			SelectBuilder:      nil,
 			SqlExecutor:        debug_executor.NewExecutor(constanta.MYSQL, constanta.DSN_TEST),
 		},
 	})

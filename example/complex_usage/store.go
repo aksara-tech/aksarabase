@@ -8,12 +8,12 @@ import (
 func (r repository) Store(company *model.Company) error {
 	company.CreatedAt = time.Now()
 
-	i, q, err := r.db.Scanner.ScanStruct(company)
+	i, err := r.db.Scanner.ScanStruct(company)
 	if err != nil {
 		return err
 	}
 
-	query := r.db.QBuilder.BuildInsertQuery(i, q)
+	query := r.db.QBuilder.BuildInsertQuery(i)
 	_, err = r.db.Exec.Exec(query)
 	if err != nil {
 		return err

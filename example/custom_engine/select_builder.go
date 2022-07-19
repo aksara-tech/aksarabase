@@ -2,14 +2,14 @@ package custom_engine
 
 import "gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
 
-type selectBuilder struct {
+type SelectBuilder struct {
 }
 
-func (s selectBuilder) BuildSelectQuery(info info.ScanInfo, qInfo info.QueryInfo) string {
+func (s SelectBuilder) BuildSelect(info info.ScanInfo, qInfo info.QueryInfo) string {
 	//TODO implement me
-	panic("implemented select query builder")
+	panic("implemented SelectQuery query builder")
 }
 
-func NewSelectBuilder() *selectBuilder {
-	return &selectBuilder{}
+func NewSelectBuilder() *SelectBuilder {
+	return &SelectBuilder{}
 }

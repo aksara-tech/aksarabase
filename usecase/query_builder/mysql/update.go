@@ -14,18 +14,18 @@ func NewUpdateBuilder() *updateBuilder {
 	return &updateBuilder{}
 }
 
-func (b updateBuilder) BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo) string {
+func (b updateBuilder) BuildUpdateQuery(info info.Info) string {
 	var params []string
 	i := 0
 
-	for _, j := range info.ColumnJson {
-		if fmt.Sprintf("%v", info.Values[i]) == "" {
+	for _, j := range info.Scan.ColumnJson {
+		if fmt.Sprintf("%v", info.Scan.Values[i]) == "" {
 			goto next
 		}
-		if fmt.Sprintf("%v", info.Values[i]) == "0" {
+		if fmt.Sprintf("%v", info.Scan.Values[i]) == "0" {
 			goto next
 		}
-		if fmt.Sprintf("%v", info.Values[i]) == constanta.TIME_NIL {
+		if fmt.Sprintf("%v", info.Scan.Values[i]) == constanta.TIME_NIL {
 			goto next
 		}
 		if j == "updated_at" {
@@ -34,8 +34,8 @@ func (b updateBuilder) BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo
 			goto next
 		}
 
-		if info.Values[i] != nil {
-			value := fmt.Sprintf("%v='%v'", j, info.Values[i])
+		if info.Scan.Values[i] != nil {
+			value := fmt.Sprintf("%v='%v'", j, info.Scan.Values[i])
 
 			params = append(params, value)
 		}
@@ -43,6 +43,6 @@ func (b updateBuilder) BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo
 		i++
 	}
 
-	query := fmt.Sprintf("Update %v SET %v WHERE %v", info.TableName, strings.Join(params, ","), strings.Join(qInfo.Where, ","))
+	query := fmt.Sprintf("Update %v SET %v WHERE %v", info.Scan.TableName, strings.Join(params, ","), strings.Join(info.Query.WhereQuery, ","))
 	return query
 }

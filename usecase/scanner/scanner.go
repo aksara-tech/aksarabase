@@ -22,7 +22,7 @@ type OutputScanner interface {
 type InputScanner interface {
 	//ScanStruct generate struct info and modifiable query info.
 	//  This also auto generate join query if struct is nested
-	ScanStruct(dest interface{}) (info.ScanInfo, info.QueryInfo, error)
+	ScanStruct(dest interface{}) (info.Info, error)
 }
 
 type PointerScanner interface {

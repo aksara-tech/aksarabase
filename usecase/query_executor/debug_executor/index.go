@@ -12,6 +12,10 @@ type mysqlExecutor struct {
 	db *sql.DB
 }
 
+func (e mysqlExecutor) Close() error {
+	return e.db.Close()
+}
+
 func NewExecutor(driver string, dsn string) *mysqlExecutor {
 	db := sql_driver.NewSql(driver, dsn)
 	return &mysqlExecutor{
@@ -19,7 +23,7 @@ func NewExecutor(driver string, dsn string) *mysqlExecutor {
 	}
 }
 
-func (e mysqlExecutor) Exec(query string) (interface{}, error) {
+func (e mysqlExecutor) Exec(query string) (sql.Result, error) {
 	s1 := time.Now()
 	res, err := e.db.Exec(query)
 	fmt.Printf("\n ==Query: %v ", query)

@@ -11,12 +11,12 @@ func (r repository) GetUserWithCompany(id int64) (u model.User, err error) {
 		Company: &model.Company{},
 	}
 
-	i, q, err := r.db.Scanner.ScanStruct(&u)
+	i, err := r.db.Scanner.ScanStruct(&u)
 	if err != nil {
 		return model.User{}, err
 	}
 
-	query := r.db.QBuilder.BuildSelectQuery(i, q)
+	query := r.db.QBuilder.BuildSelect(i)
 	row := r.db.Exec.Row(query)
 	err = r.db.Scanner.ToStruct(&u, row)
 	return
@@ -27,14 +27,14 @@ func (r repository) GetUserByID(id int64) (u model.User, err error) {
 	u = model.User{
 		Company: &model.Company{},
 	}
-	i, q, err := r.db.Scanner.ScanStruct(&u)
+	i, err := r.db.Scanner.ScanStruct(&u)
 	if err != nil {
 		return model.User{}, err
 	}
 
-	q.Where = append(q.Where, s.F("User.id=%v", id))
+	i.Query.WhereQuery = append(i.Query.WhereQuery, s.F("User.id=%v", id))
 
-	query := r.db.QBuilder.BuildSelectQuery(i, q)
+	query := r.db.QBuilder.BuildSelect(i)
 	row := r.db.Exec.Row(query)
 
 	err = r.db.Scanner.ToStruct(&u, row)

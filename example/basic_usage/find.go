@@ -7,15 +7,14 @@ import (
 
 func (c repositoryUsingCompiler) Find(id int64) (res []model.Company, err error) {
 	company := &model.Company{}
-	i, q, err := c.db.Scanner.ScanStruct(company)
+	i, err := c.db.Scanner.ScanStruct(company)
 	if err != nil {
 		return nil, err
 	}
 
-	q.Where = append(q.Where, fmt.Sprintf("id=%v", id))
+	i.Query.Where("id", id)
 
-	compiler := c.db.ORM.OpenCompiler(i, q)
-	err = compiler.Get(&res)
+	err = c.db.Get(&res, i)
 	if err != nil {
 		return nil, err
 	}
@@ -27,14 +26,13 @@ func (c repositoryUsingCompiler) FindWith(id int64) (res []model.User, err error
 	users := &model.User{
 		Company: &model.Company{},
 	}
-	i, q, err := c.db.Scanner.ScanStruct(users)
+	i, err := c.db.Scanner.ScanStruct(users)
 	if err != nil {
 		return nil, err
 	}
 
-	q.Where = append(q.Where, fmt.Sprintf("User.id=%v", id))
-	compiler := c.db.ORM.OpenCompiler(i, q)
-	err = compiler.Get(&res)
+	i.Query.WhereQuery = append(i.Query.WhereQuery, fmt.Sprintf("User.id=%v", id))
+	err = c.db.Get(&res, i)
 	if err != nil {
 		return nil, err
 	}

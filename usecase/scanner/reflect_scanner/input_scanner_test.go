@@ -13,9 +13,9 @@ type ScannerTest struct {
 
 type ScannerTestChild struct {
 	model.BaseModel
-	ScanResult    string      `json:"scan_result"`
-	ScannerTestID int64       `json:"scanner_test_id"`
-	ScannerTest   ScannerTest `json:"scanner_test" foreign:"scanner_test_id"`
+	ScanResult    string       `json:"scan_result"`
+	ScannerTestID int64        `json:"scanner_test_id"`
+	ScannerTest   *ScannerTest `json:"scanner_test" foreign:"scanner_test_id"`
 }
 
 func (s ScannerTest) TableName() string {
@@ -49,7 +49,7 @@ func Test_inputScanner_ScanStruct(t *testing.T) {
 			args:       args{dest: new(ScannerTestChild)},
 			tableName:  "scanner_test_child",
 			structName: "ScannerTestChild",
-			len:        11,
+			len:        6,
 			queryFrom:  "scanner_test_child ScannerTestChild",
 			joinLen:    0,
 		},
@@ -68,7 +68,7 @@ func Test_inputScanner_ScanStruct(t *testing.T) {
 		{
 			name: "has child",
 			args: args{dest: ScannerTestChild{
-				ScannerTest: ScannerTest{},
+				ScannerTest: &ScannerTest{},
 			}},
 			tableName:  "scanner_test_child",
 			structName: "ScannerTestChild",
@@ -80,20 +80,20 @@ func Test_inputScanner_ScanStruct(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			i := NewInputScanner()
-			res, q, err := i.ScanStruct(tt.args.dest)
+			res, err := i.ScanStruct(tt.args.dest)
 			assert.Nil(t, err)
-			assert.NotNil(t, q)
+			assert.NotNil(t, res.Query)
 			assert.NotNil(t, res)
-			assert.Equal(t, tt.tableName, res.TableName)
-			assert.Equal(t, tt.structName, res.StructName)
-			assert.Equal(t, tt.len, len(res.Columns))
+			assert.Equal(t, tt.tableName, res.Scan.TableName)
+			assert.Equal(t, tt.structName, res.Scan.StructName)
+			assert.Equal(t, tt.len, len(res.Scan.Columns))
 			//TODO: all len must equal
-			assert.Equal(t, len(res.ColumnJson), len(res.Columns))
-			assert.Equal(t, len(res.ColumnWithAliases), len(res.ColumnWithAliases))
-			assert.Equal(t, tt.len, len(q.Select))
-			//TODO: FROM Query for select must has alias
-			assert.Equal(t, tt.queryFrom, q.From)
-			assert.Equal(t, tt.joinLen, len(q.Join))
+			assert.Equal(t, len(res.Scan.ColumnJson), len(res.Scan.Columns))
+			assert.Equal(t, len(res.Scan.ColumnWithAliases), len(res.Scan.ColumnWithAliases))
+			assert.Equal(t, tt.len, len(res.Query.SelectQuery))
+			//TODO: FROM Query for SelectQuery must has alias
+			assert.Equal(t, tt.queryFrom, res.Query.FromQuery)
+			assert.Equal(t, tt.joinLen, len(res.Query.JoinQuery))
 		})
 	}
 }

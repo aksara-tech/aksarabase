@@ -6,24 +6,24 @@ import (
 
 type InsertQueryBuilder interface {
 	//BuildInsertQuery build insert query using ScanInfo
-	BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo) string
+	BuildInsertQuery(info info.Info) string
 }
 
-type SelectQueryBuilder interface {
+type SelectBuilder interface {
 	/*
 		Convert ScanInfo from struct Scanner and QueryInfo, which has
-		  Select, From, Where, Join, Limit, OrderBy to string query
+		  SelectQuery, From, Where, Join, Limit, OrderBy to string query
 	*/
-	BuildSelectQuery(info info.ScanInfo, qInfo info.QueryInfo) string
+	BuildSelect(info info.Info) string
 }
 
 type UpdateQueryBuilder interface {
 	//BuildUpdateQuery build update query using where in QueryInfo and ScanInfo
-	BuildUpdateQuery(info info.ScanInfo, qInfo info.QueryInfo) string
+	BuildUpdateQuery(info info.Info) string
 }
 
 type QueryBuilder interface {
 	InsertQueryBuilder
 	UpdateQueryBuilder
-	SelectQueryBuilder
+	SelectBuilder
 }

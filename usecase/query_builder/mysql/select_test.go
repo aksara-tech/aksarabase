@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
+func Test_queryBuilderMysql_BuildSelect(t *testing.T) {
 
 	type args struct {
 		info info.ScanInfo
@@ -21,7 +21,7 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 		want string
 	}{
 		{
-			name: "BASIC SELECT",
+			name: "BASIC SelectQuery",
 			args: args{
 				info: info.ScanInfo{
 					TableName:  "companies",
@@ -40,12 +40,12 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 					},
 				},
 				q: info.QueryInfo{
-					Select:  nil,
-					From:    "companies Company",
-					Where:   nil,
-					Join:    nil,
-					Limit:   "",
-					OrderBy: "",
+					SelectQuery:  nil,
+					FromQuery:    "companies Company",
+					WhereQuery:   nil,
+					JoinQuery:    nil,
+					LimitQuery:   "",
+					OrderByQuery: "",
 				},
 			},
 			want: "SELECT * FROM companies Company ",
@@ -70,11 +70,11 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 					},
 				},
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "companies Company",
-					Where:  []string{"Company.id=2"},
-					Join:   nil,
-					Limit:  "",
+					SelectQuery: nil,
+					FromQuery:   "companies Company",
+					WhereQuery:  []string{"Company.id=2"},
+					JoinQuery:   nil,
+					LimitQuery:  "",
 				},
 			},
 			want: "SELECT * FROM companies Company WHERE Company.id=2 ",
@@ -99,11 +99,11 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 					},
 				},
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "companies Company",
-					Where:  []string{"Company.id=2", "AND", "Company.name='urban'"},
-					Join:   nil,
-					Limit:  "",
+					SelectQuery: nil,
+					FromQuery:   "companies Company",
+					WhereQuery:  []string{"Company.id=2", "AND", "Company.name='urban'"},
+					JoinQuery:   nil,
+					LimitQuery:  "",
 				},
 			},
 			want: "SELECT * FROM companies Company WHERE Company.id=2 AND Company.name='urban' ",
@@ -128,11 +128,11 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 					},
 				},
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "companies Company",
-					Where:  []string{"Company.id=2", "AND", "Company.name='urban'"},
-					Join:   nil,
-					Limit:  "",
+					SelectQuery: nil,
+					FromQuery:   "companies Company",
+					WhereQuery:  []string{"Company.id=2", "AND", "Company.name='urban'"},
+					JoinQuery:   nil,
+					LimitQuery:  "",
 				},
 			},
 			want: "SELECT * FROM companies Company WHERE Company.id=2 AND Company.name='urban' ",
@@ -158,17 +158,17 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 				},
 
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "users User",
-					Where:  []string{"User.id=1"},
-					Join: []query.JoinRelation{
+					SelectQuery: nil,
+					FromQuery:   "users User",
+					WhereQuery:  []string{"User.id=1"},
+					JoinQuery: []query.JoinRelation{
 						{
 							Join:      "LEFT JOIN",
 							TableName: "companies Company",
 							ON:        "User.company_id=Company.id",
 						},
 					},
-					Limit: "",
+					LimitQuery: "",
 				},
 			},
 			want: "SELECT * FROM users User LEFT JOIN companies Company ON User.company_id=Company.id WHERE User.id=1 ",
@@ -194,17 +194,17 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 				},
 
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "users User",
-					Where:  []string{"User.id=1"},
-					Join: []query.JoinRelation{
+					SelectQuery: nil,
+					FromQuery:   "users User",
+					WhereQuery:  []string{"User.id=1"},
+					JoinQuery: []query.JoinRelation{
 						{
 							Join:      "LEFT JOIN",
 							TableName: "companies Company",
 							ON:        "User.company_id=Company.id",
 						},
 					},
-					Limit: "3",
+					LimitQuery: "3",
 				},
 			},
 			want: "SELECT * FROM users User LEFT JOIN companies Company ON User.company_id=Company.id WHERE User.id=1 LIMIT 3",
@@ -230,18 +230,18 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 				},
 
 				q: info.QueryInfo{
-					Select: nil,
-					From:   "users User",
-					Where:  []string{"User.id=1"},
-					Join: []query.JoinRelation{
+					SelectQuery: nil,
+					FromQuery:   "users User",
+					WhereQuery:  []string{"User.id=1"},
+					JoinQuery: []query.JoinRelation{
 						{
 							Join:      "LEFT JOIN",
 							TableName: "companies Company",
 							ON:        "User.company_id=Company.id",
 						},
 					},
-					Limit:   "3",
-					OrderBy: "id DESC",
+					LimitQuery:   "3",
+					OrderByQuery: "id DESC",
 				},
 			},
 			want: "SELECT * FROM users User LEFT JOIN companies Company ON User.company_id=Company.id WHERE User.id=1 ORDER BY id DESC LIMIT 3",
@@ -250,7 +250,10 @@ func Test_queryBuilderMysql_BuildSelectQuery(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			nq := NewSelectBuilder()
-			query := nq.BuildSelectQuery(tt.args.info, tt.args.q)
+			query := nq.BuildSelect(info.Info{
+				Query: tt.args.q,
+				Scan:  tt.args.info,
+			})
 			assert.Equal(t, tt.want, regex.RemoveMultiString(query))
 		})
 	}

@@ -14,22 +14,22 @@ import (
 
 type inputScanner struct{}
 
-func (in inputScanner) ScanStruct(dest interface{}) (s info.ScanInfo, q info.QueryInfo, err error) {
-	s.StructName = reflector.GetStructName(dest)
-	s.TableName = reflector.GetTableName(dest)
-	s.StructAddress = dest
-	in.getColumn(dest, s.StructName, &s.Columns, &s.ColumnWithAliases, &s.ColumnJson, &s.Values, &q.Join)
+func (in inputScanner) ScanStruct(dest interface{}) (s info.Info, err error) {
+	s.Scan.StructName = reflector.GetStructName(dest)
+	s.Scan.TableName = reflector.GetTableName(dest)
+	s.Scan.StructAddress = dest
+	in.getColumn(dest, s.Scan.StructName, &s)
 
-	//TODO: append select
-	for _, si := range s.ColumnWithAliases {
-		q.Select = append(q.Select, si)
+	//TODO: append SelectQuery
+	for _, si := range s.Scan.ColumnWithAliases {
+		s.Query.SelectQuery = append(s.Query.SelectQuery, si)
 	}
-	q.From = fmt.Sprintf("%v %v", s.TableName, s.StructName)
+	s.Query.FromQuery = fmt.Sprintf("%v %v", s.Scan.TableName, s.Scan.StructName)
 
 	return
 }
 
-func (in inputScanner) getColumn(dest interface{}, alias string, columns *[]string, columnWithAliases *[]string, columnJson *[]string, values *[]interface{}, relations *[]query.JoinRelation) {
+func (in inputScanner) getColumn(dest interface{}, alias string, info *info.Info) {
 	val := reflect.ValueOf(dest)
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
@@ -39,7 +39,6 @@ func (in inputScanner) getColumn(dest interface{}, alias string, columns *[]stri
 	if typ.Kind() == reflect.Ptr {
 		typ = typ.Elem()
 	}
-
 	strict := true
 	numField := val.NumField()
 	for i := 0; i < numField; i++ {
@@ -73,11 +72,12 @@ func (in inputScanner) getColumn(dest interface{}, alias string, columns *[]stri
 						ON:        fmt.Sprintf("%v.%v=%v.%v", alias, foreignTag, typ.Field(i).Name, refTag),
 					}
 					alias = typ.Field(i).Name
-					*relations = append(*relations, relation)
+
+					info.Query.JoinQuery = append(info.Query.JoinQuery, relation)
 					fmt.Println(relation)
-					in.getColumn(field.Interface(), alias, columns, columnWithAliases, columnJson, values, relations)
+					in.getColumn(field.Interface(), alias, info)
 				} else {
-					in.getColumn(field.Interface(), alias, columns, columnWithAliases, columnJson, values, relations)
+					in.getColumn(field.Interface(), alias, info)
 				}
 			} else {
 				if ty.Kind() == reflect.Slice {
@@ -94,9 +94,10 @@ func (in inputScanner) getColumn(dest interface{}, alias string, columns *[]stri
 
 				colWithAlias := fmt.Sprintf("%v.%v", alias, jsonTag)
 
-				*columnWithAliases = append(*columnWithAliases, colWithAlias)
-				*columnJson = append(*columnJson, jsonTag)
-				*columns = append(*columns, fieldName)
+				info.Scan.ColumnWithAliases = append(info.Scan.ColumnWithAliases, colWithAlias)
+				info.Scan.ColumnJson = append(info.Scan.ColumnJson, jsonTag)
+				info.Scan.Columns = append(info.Scan.Columns, fieldName)
+				info.Scan.Types = append(info.Scan.Types, ty.Name())
 				if field.IsValid() {
 					if ty.String() == "time.Time" {
 						time, ok := field.Interface().(time.Time)
@@ -105,12 +106,12 @@ func (in inputScanner) getColumn(dest interface{}, alias string, columns *[]stri
 						}
 
 						formattedTime := time.UTC().Format("2006-01-02 03:04:05")
-						*values = append(*values, formattedTime)
+						info.Scan.Values = append(info.Scan.Values, formattedTime)
 					} else {
-						*values = append(*values, field.Interface())
+						info.Scan.Values = append(info.Scan.Values, field.Interface())
 					}
 				} else {
-					*values = append(*values, nil)
+					info.Scan.Values = append(info.Scan.Values, nil)
 				}
 			}
 		}

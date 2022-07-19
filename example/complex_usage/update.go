@@ -6,13 +6,13 @@ import (
 )
 
 func (r repository) Update(company *model.Company) error {
-	i, q, err := r.db.Scanner.ScanStruct(company)
+	i, err := r.db.Scanner.ScanStruct(company)
 	if err != nil {
 		return err
 	}
 
-	q.Where = append(q.Where, s.F("id=%v", company.ID))
-	query := r.db.QBuilder.BuildUpdateQuery(i, q)
+	i.Query.WhereQuery = append(i.Query.WhereQuery, s.F("id=%v", company.ID))
+	query := r.db.QBuilder.BuildUpdateQuery(i)
 	_, err = r.db.Exec.Exec(query)
 	return err
 }

@@ -1,8 +1,8 @@
-package aksarabase_v2
+package aksarabase_v3
 
 import (
 	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/orm"
+	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/compiler"
 	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder"
 	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder/mysql"
 	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor"
@@ -20,10 +20,10 @@ type ADB struct {
 	//QBuilder used for generate basic query
 	QBuilder query_builder.QueryBuilder
 	//ORM is easy and simple command to get or execute data from database
-	ORM orm.ORM
+	compiler.Compiler
 }
 
-//Open used to integrate all module and start the orm, scanner ,and other feature.
+//Open used to integrate all module and start the compiler, scanner ,and other feature.
 func Open(driver string, dsn string, config domain.Config) *ADB {
 	//declare scanner
 	scanner := setupScanner(config.Engine)
@@ -38,7 +38,7 @@ func Open(driver string, dsn string, config domain.Config) *ADB {
 		Exec:     executor,
 		Scanner:  scanner,
 		QBuilder: queryBuilder,
-		ORM:      orm.NewOrm(scanner, executor, queryBuilder),
+		Compiler: compiler.NewCompiler(scanner, queryBuilder, executor),
 	}
 }
 
@@ -68,13 +68,13 @@ func setupQueryBuilder(engine domain.Engine) (qb query_builder.QueryBuilder) {
 		updateBuilder = mysql.NewUpdateBuilder()
 	}
 
-	var selectBuilder query_builder.SelectQueryBuilder
-	if engine.SelectQueryBuilder != nil {
-		selectBuilder = engine.SelectQueryBuilder
+	var SelectBuilder query_builder.SelectBuilder
+	if engine.SelectBuilder != nil {
+		SelectBuilder = engine.SelectBuilder
 	} else {
-		selectBuilder = mysql.NewSelectBuilder()
+		SelectBuilder = mysql.NewSelectBuilder()
 	}
-	qb = mysql.NewQueryBuilderMysql(insertBuilder, selectBuilder, updateBuilder)
+	qb = mysql.NewQueryBuilderMysql(insertBuilder, SelectBuilder, updateBuilder)
 	return
 }
 

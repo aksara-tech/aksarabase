@@ -1,13 +1,31 @@
 package info
 
-import "gitlab.com/aksaratech/aksarabase-go/v3/domain/query"
+import (
+	"fmt"
+	"gitlab.com/aksaratech/aksarabase-go/v3/domain/query"
+	"strings"
+)
 
 //QueryInfo is a partial query builder that has modifiable structure before it's executed
 type QueryInfo struct {
-	Select  []string
-	From    string
-	Where   []string
-	Join    []query.JoinRelation
-	Limit   string
-	OrderBy string
+	SelectQuery  []string
+	FromQuery    string
+	WhereQuery   []string
+	JoinQuery    []query.JoinRelation
+	LimitQuery   string
+	OrderByQuery string
+}
+
+func (q *QueryInfo) Where(column string, val interface{}) (qr *QueryInfo) {
+	and := ""
+	if len(q.WhereQuery) > 0 {
+		and = "AND"
+	}
+	if strings.Contains(column, "=") || strings.Contains(column, "LIKE") {
+		q.WhereQuery = append(q.WhereQuery, fmt.Sprintf("%v %v '%v'", and, column, val))
+	} else {
+		q.WhereQuery = append(q.WhereQuery, fmt.Sprintf("%v %v='%v'", and, column, val))
+	}
+
+	return q
 }

@@ -14,17 +14,17 @@ func NewInsertBuilder() *insertBuilder {
 	return &insertBuilder{}
 }
 
-func (b insertBuilder) BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo) string {
+func (b insertBuilder) BuildInsertQuery(info info.Info) string {
 	var values []string
 	var columns []string
 	i := 0
-	for _, value := range info.Values {
+	for _, value := range info.Scan.Values {
 		if fmt.Sprintf("%v", value) == "0" {
 			goto next
 		}
 
 		if value != nil {
-			if info.ColumnJson[i] == "created_at" {
+			if info.Scan.Types[i] == "Time" {
 				value = time.Now().UTC().Format(constanta.TIME_LAYOUT)
 			}
 
@@ -33,7 +33,7 @@ func (b insertBuilder) BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo
 			}
 
 			values = append(values, fmt.Sprintf("'%v'", value))
-			columns = append(columns, fmt.Sprintf("%v", info.ColumnJson[i]))
+			columns = append(columns, fmt.Sprintf("%v", info.Scan.ColumnJson[i]))
 		}
 	next:
 		{
@@ -41,6 +41,6 @@ func (b insertBuilder) BuildInsertQuery(info info.ScanInfo, qInfo info.QueryInfo
 		}
 	}
 
-	query := fmt.Sprintf("INSERT INTO %v (%v) VALUES (%v)", info.TableName, strings.Join(columns, ","), strings.Join(values, ","))
+	query := fmt.Sprintf("INSERT INTO %v (%v) VALUES (%v)", info.Scan.TableName, strings.Join(columns, ","), strings.Join(values, ","))
 	return query
 }
