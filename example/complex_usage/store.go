@@ -1,7 +1,7 @@
 package complex_usage
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+	"github.com/aksara-tech/aksarabase/example/model"
 	"time"
 )
 

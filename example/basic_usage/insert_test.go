@@ -1,18 +1,18 @@
 package basic_usage
 
 import (
+	"github.com/aksara-tech/aksarabase"
+	"github.com/aksara-tech/aksarabase/domain"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/example/model"
+	"github.com/aksara-tech/aksarabase/usecase/query_executor/debug_executor"
 	"github.com/bxcodec/faker"
 	"github.com/stretchr/testify/assert"
-	aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor/debug_executor"
 	"testing"
 )
 
 func Test_repositoryUsingCompiler_Create(t *testing.T) {
-	db := aksarabase_v2.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{
+	db := aksarabase.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{
 		Engine: domain.Engine{
 			SqlExecutor: debug_executor.NewExecutor(constanta.MYSQL, constanta.DSN_TEST),
 		},

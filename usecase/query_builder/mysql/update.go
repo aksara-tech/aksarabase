@@ -2,8 +2,8 @@ package mysql
 
 import (
 	"fmt"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/domain/info"
 	"strings"
 	"time"
 )

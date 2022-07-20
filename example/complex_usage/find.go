@@ -1,8 +1,8 @@
 package complex_usage
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
-	"gitlab.com/aksaratech/aksarabase-go/v3/utils/s"
+	"github.com/aksara-tech/aksarabase/example/model"
+	"github.com/aksara-tech/aksarabase/utils/s"
 )
 
 func (r repository) FetchByID(id int64) (res []model.Company, err error) {

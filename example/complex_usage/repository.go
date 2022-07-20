@@ -1,11 +1,11 @@
 package complex_usage
 
-import aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
+import "github.com/aksara-tech/aksarabase"
 
 type repository struct {
-	db aksarabase_v2.ADB
+	db aksarabase.ADB
 }
 
-func NewRepository(db aksarabase_v2.ADB) *repository {
+func NewRepository(db aksarabase.ADB) *repository {
 	return &repository{db: db}
 }

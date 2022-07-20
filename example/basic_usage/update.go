@@ -1,6 +1,6 @@
 package basic_usage
 
-import "gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+import "github.com/aksara-tech/aksarabase/example/model"
 
 func (c repositoryUsingCompiler) UpdateUser(user *model.User) error {
 	i, err := c.db.Scanner.ScanStruct(user)

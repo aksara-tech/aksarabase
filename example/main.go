@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/basic_usage"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/complex_usage"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor/debug_executor"
+	"github.com/aksara-tech/aksarabase"
+	"github.com/aksara-tech/aksarabase/domain"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/example/basic_usage"
+	"github.com/aksara-tech/aksarabase/example/complex_usage"
+	"github.com/aksara-tech/aksarabase/example/model"
+	"github.com/aksara-tech/aksarabase/usecase/query_executor/debug_executor"
 )
 
 func main() {
 
-	adb := aksarabase_v2.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{
+	adb := aksarabase.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{
 		Engine: domain.Engine{
 			OutputScanner:      nil,
 			InputScanner:       nil,

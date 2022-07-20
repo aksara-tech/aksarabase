@@ -1,9 +1,9 @@
 package domain
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
+	"github.com/aksara-tech/aksarabase/usecase/query_builder"
+	"github.com/aksara-tech/aksarabase/usecase/query_executor"
+	"github.com/aksara-tech/aksarabase/usecase/scanner"
 )
 
 type Engine struct {

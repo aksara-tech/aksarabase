@@ -2,7 +2,7 @@ package basic_usage
 
 import (
 	"fmt"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+	"github.com/aksara-tech/aksarabase/example/model"
 )
 
 func (c repositoryUsingCompiler) Find(id int64) (res []model.Company, err error) {

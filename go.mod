@@ -1,4 +1,4 @@
-module gitlab.com/aksaratech/aksarabase-go/v3
+module github.com/aksara-tech/aksarabase
 
 go 1.18
 

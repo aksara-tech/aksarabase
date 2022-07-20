@@ -1,11 +1,11 @@
 package basic_usage
 
-import aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
+import "github.com/aksara-tech/aksarabase"
 
 type repositoryUsingCompiler struct {
-	db aksarabase_v2.ADB
+	db aksarabase.ADB
 }
 
-func NewRepositoryBasic(db aksarabase_v2.ADB) *repositoryUsingCompiler {
+func NewRepositoryBasic(db aksarabase.ADB) *repositoryUsingCompiler {
 	return &repositoryUsingCompiler{db: db}
 }

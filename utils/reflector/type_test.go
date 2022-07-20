@@ -1,8 +1,8 @@
 package reflector
 
 import (
+	"github.com/aksara-tech/aksarabase/example/model"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
 	"testing"
 )
 

@@ -1,16 +1,16 @@
 package complex_usage
 
 import (
+	"github.com/aksara-tech/aksarabase"
+	"github.com/aksara-tech/aksarabase/domain"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/example/model"
 	"github.com/stretchr/testify/assert"
-	aksarabase_v2 "gitlab.com/aksaratech/aksarabase-go/v3"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
 	"testing"
 )
 
 func Test_repository_FetchByID(t *testing.T) {
-	adb := aksarabase_v2.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{})
+	adb := aksarabase.Open(constanta.MYSQL, constanta.DSN_TEST, domain.Config{})
 	repo := NewRepository(*adb)
 	type args struct {
 		id int64

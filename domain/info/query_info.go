@@ -2,7 +2,7 @@ package info
 
 import (
 	"fmt"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/query"
+	"github.com/aksara-tech/aksarabase/domain/query"
 	"strings"
 )
 

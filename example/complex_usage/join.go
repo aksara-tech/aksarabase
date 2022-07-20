@@ -1,8 +1,8 @@
 package complex_usage
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
-	"gitlab.com/aksaratech/aksarabase-go/v3/utils/s"
+	"github.com/aksara-tech/aksarabase/example/model"
+	"github.com/aksara-tech/aksarabase/utils/s"
 )
 
 //GetUserWithCompany get user and his company

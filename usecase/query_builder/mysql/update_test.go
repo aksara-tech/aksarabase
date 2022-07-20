@@ -2,12 +2,12 @@ package mysql
 
 import (
 	"fmt"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/domain/info"
+	"github.com/aksara-tech/aksarabase/example/model"
+	"github.com/aksara-tech/aksarabase/usecase/scanner/reflect_scanner"
+	"github.com/aksara-tech/aksarabase/utils/regex"
 	"github.com/stretchr/testify/assert"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner/reflect_scanner"
-	"gitlab.com/aksaratech/aksarabase-go/v3/utils/regex"
 	"testing"
 	"time"
 )

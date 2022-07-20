@@ -1,12 +1,12 @@
 package compiler
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/constanta"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_builder"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/query_executor"
-	"gitlab.com/aksaratech/aksarabase-go/v3/usecase/scanner"
-	"gitlab.com/aksaratech/aksarabase-go/v3/utils/reflector"
+	"github.com/aksara-tech/aksarabase/domain/constanta"
+	"github.com/aksara-tech/aksarabase/domain/info"
+	"github.com/aksara-tech/aksarabase/usecase/query_builder"
+	"github.com/aksara-tech/aksarabase/usecase/query_executor"
+	"github.com/aksara-tech/aksarabase/usecase/scanner"
+	"github.com/aksara-tech/aksarabase/utils/reflector"
 	"reflect"
 	"time"
 )

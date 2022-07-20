@@ -1,7 +1,7 @@
 package basic_usage
 
 import (
-	"gitlab.com/aksaratech/aksarabase-go/v3/example/model"
+	"github.com/aksara-tech/aksarabase/example/model"
 )
 
 func (c repositoryUsingCompiler) CreateUser(user *model.User) error {

@@ -2,7 +2,7 @@ package mysql
 
 import (
 	"fmt"
-	"gitlab.com/aksaratech/aksarabase-go/v3/domain/info"
+	"github.com/aksara-tech/aksarabase/domain/info"
 	"strings"
 )
 
